@@ -1,0 +1,68 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.gms:google-services:4.3.15'
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.42"
+        // Remove the Hilt classpath dependency if using plugins DSL with a version.
+    }
+}
+
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "kotlin-kapt"
+    id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
+}
+
+apply plugin: "dagger.hilt.android.plugin"
+
+android {
+    namespace = "com.example.c"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17
+    }
+
+    defaultConfig {
+        applicationId = "com.example.c"
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    implementation platform('com.google.firebase:firebase-bom:33.8.0')
+    implementation "com.google.dagger:hilt-android:2.42"
+    kapt "com.google.dagger:hilt-android-compiler:2.42"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
